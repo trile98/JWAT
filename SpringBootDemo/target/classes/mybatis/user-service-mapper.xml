@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="hello.mapper.UserMapper">
+ 
+    <resultMap id="result" type="User">
+        <result property="id" column="idUser"/>
+        <result property="username" column="user_name"/>
+        <result property="password" column="password"/>
+        <result property="email" column="email"/>
+    </resultMap>
+ 
+    <select id="getAllUser" parameterType="int" resultMap="result">
+        SELECT idUser,user_name,password,email
+        FROM user;
+    </select>
+ 
+  <select id="getUser" parameterType="User" resultMap="result">
+        SELECT idUser,user_name,password,email
+        FROM user
+        WHERE user_name=#{username} AND password = #{password};
+    </select>
+    
+    <select id="getUserById" parameterType="int" resultMap="result">
+        SELECT idUser,user_name,password,email
+        FROM user
+        WHERE idUser = #{id};
+    </select>
+ 
+    <insert id="AddNew" parameterType="User">
+        INSERT INTO user (idUser,user_name,password,email)
+        VALUE (null,#{username},#{password},#{email})
+    </insert>
+    
+    <update id="UpdateUser" parameterType="User">
+    	UPDATE user
+        SET
+        user_name = #{username},
+        password = #{password},
+        email = #{email}
+        where idUser = #{id}
+    </update>
+    
+    <delete id="DeleteUser" parameterType="int">
+    	Delete from user where idUser = #{id}
+    </delete>
+    
+</mapper>

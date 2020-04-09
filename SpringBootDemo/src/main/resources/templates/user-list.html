@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>List of User</title>
+
+<link rel="icon" type="image/png" href="/table/images/icons/favicon.ico"/>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<link rel="stylesheet" type="text/css" href="/table/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/table/vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/table/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/table/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/table/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/table/css/main.css">
+</head>
+<body>
+
+<div class="limiter">
+		<div class="container-table100">
+		
+			<div class="m-4">
+				<button class="btn btn-success" id="addRowBtn">Add new row</button>
+			</div>
+			
+		
+			<div class="wrap-table100">
+					<div class="table" id="tableBody">
+
+					</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<script src="/table/vendor/select2/select2.min.js"></script>
+	<script src="/table/js/main.js"></script>
+
+<script type="text/javascript">
+$.ajax({
+    type: "GET",
+    url: "/getList",
+    success :function(responseData) {
+
+    		var header = "<div class='row header'> <div class='cell'>Action</div> <div class='cell'>Id</div> <div class='cell'>Username</div> <div class='cell'>Password</div> <div class='cell'>Email</div> </div>"
+    		var row = "";
+    		$.each(responseData,function(index,value){
+				row += "<div class='row'>";
+				row += "<div class='cell' data-title='Action'><a href='/edit/"+value.id+"'>Edit</a> | <a href='/delete/"+value.id+"'>Delete</a> </div>";
+				row += "<div class='cell' data-title='Id'>"+value.id+"</div>";
+				row += "<div class='cell' data-title='Username'>"+value.username+"</div>";
+				row += "<div class='cell' data-title='Password'>"+value.password+"</div>";
+				row += "<div class='cell' data-title='Email'>"+value.email+"</div>";
+				row += "</div>"
+				
+       		});
+
+       		$("#tableBody").html(header + row);
+    },
+    fail: function(){
+        alert("fail")
+        }
+    
+});
+
+$("#addRowBtn").click(function(){
+	var row = "";
+	row += "<div class='row'>";
+	row += "<div class='cell' data-title='Action'><a href='/edit/'>Edit</a> | <a href='/delete/'>Delete</a> </div>";
+	row += "<div class='cell' data-title='Id'></div>";
+	row += "<div class='cell' data-title='Username'></div>";
+	row += "<div class='cell' data-title='Password'></div>";
+	row += "<div class='cell' data-title='Email'></div>";
+	row += "</div>";
+
+	$("#tableBody").append(row);
+});
+</script>
+
+</body>
+</html>
