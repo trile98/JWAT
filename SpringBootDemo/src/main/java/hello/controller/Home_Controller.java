@@ -111,13 +111,5 @@ public class Home_Controller{
 	        return "edit";
 	    }
 	
-	 @RequestMapping(value = "/delete/{id}")
-	    public String deleteUser(@PathVariable("id") int id) {
-	        
-		
-		 	uService.DeleteUser(id);
-		 
-	        return "redirect:/user-list";
-	    }
 		
 }

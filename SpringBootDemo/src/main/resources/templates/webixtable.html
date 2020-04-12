@@ -20,19 +20,14 @@
 	    type: "GET",
 	    url: "/getList",
 	    success :function(responseData) {
-				var dataGrid = [];
-	    		$.each(responseData,function(index,value){
-		    		dataGrid.push({action:"1",id:value.id,username: value.username, password: value.password, email:value.email});
-					
-					
-	       		});
-
+				
 	    		webix.ui({
 	    			
 	    			  rows:[
 	    			      { view:"template", 
 	    			        type:"header", template:"List of Users" },
-	    			      { view:"datatable",
+	    			      { view:"datatable", 
+	  	    			      id:"my_list",
 	  	    			      resizeColumn:true,
 	    			        	columns:[
 		    			        	{ id:"action",	header:"",
@@ -50,12 +45,27 @@
 	    		    			    	window.location.replace("/edit/"+id);
 	    		    			    },
 	    		    			    delete_btn:function(ev, id, html){
-	    		    			    	window.location.replace("/delete/"+id);
-		    		    			    }
+		    		    			    
+		    		    			    $.ajax({
+	    		    					       type: "POST",
+	    		    					       contentType : 'application/json',
+	    		    					       url: "/delete",
+	    		    					       data: JSON.stringify(id), // Note it is important
+	    		    					       success :function(responseText) {
+	    		    					    	   webix.alert(responseText,"alert-warning").then(function(){
+	    		    					    		   if(responseText == "Delete Successfully"){$$("my_list").remove(id);}
+	    		    					    	   })
+	    		    					    	   
+	    		    					       },
+	    		    					       error: function(data){
+														console.log(data);
+		    		    					       }
+	    		    					   });
+		    		    			}
 	    		    			  },
     			        	autoheight:true,  
 	    			        autoConfig:true, 
-	    			        data:dataGrid
+	    			        data:responseData
 	    			      }
 	    			  ]
 	    			});
