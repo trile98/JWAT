@@ -1,0 +1,15 @@
+span.fa.fa-times.form-control-feedback{
+	color: red;
+	position: absolute;
+    display: block;
+    top: 25%;
+    right: 0;
+}
+
+span.fa.fa-check.form-control-feedback{
+	color: green;
+	position: absolute;
+    display: block;
+    top: 25%;
+    right: 0;
+}

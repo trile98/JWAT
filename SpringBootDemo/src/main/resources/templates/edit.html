@@ -26,7 +26,7 @@
 	<link rel="stylesheet" type="text/css" href="/loginPage/css/util.css">
 	<link rel="stylesheet" type="text/css" href="/loginPage/css/main.css">
 <!--===============================================================================================-->
-
+	<link rel="stylesheet" type="text/css" href="/OwnCSS/validation.css">
 </head>
 <body>
 
@@ -34,7 +34,6 @@
 <div class="limiter">
 		<div class="container-login100" style="background-image: url('loginPage/images/bg-01.jpg');">
 			<div class="wrap-login100">
-				<form class="login100-form validate-form" method="POST">
 					<span class="login100-form-logo">
 						<i class="zmdi zmdi-landscape"></i>
 					</span>
@@ -62,7 +61,6 @@
 							Change
 						</button>
 					</div>
-				</form>
 			</div>
 		</div>
 	</div>
@@ -88,32 +86,7 @@
 <!--===============================================================================================-->
 	<script src="/loginPage/js/main.js"></script>
 
-<script>
-	$("#changeBtn").click(function(){
-			
-
-			var user = {
-				"id" : $(this).data("id"),
-				"username" : $("#usernameInput").val(),
-				"password" : $("#passwordInput").val(),
-				"email": $("#emailInput").val()
-			}
-
-			 $.ajax({
-			       type: "POST",
-			       contentType : 'application/json',
-			       dataType : 'json',
-			       url: "/changeUserInfo",
-			       data: JSON.stringify(user), // Note it is important
-			       success :function(responseData) {
-			       		alert(responseData.status);
-			       		window.location.replace("/user-list");
-			       }
-			   });
-				
-			
-		});
-</script>
+<script src="/OwnScript/ajaxValidation.js"></script>
 
 </body>
 </html>
